@@ -6,13 +6,13 @@ As a quick reminder TLS (Transport Layer Security) is a cryptographic protocol t
 
 ### The TLS handshake
 
-First there is the usual SYN (Syncronise), SYN-ACK(Syncronise and Acknowledge) then the ACK (Aknowledge). Then when a TLS connection starts it initiated the TLS handhsake where several key decisions (excuse the pun) are made. First the client sends a "ClientHello" message to request a secure website. This message comes with information about which versions of TLS it can use and the which cipher suites[^-1] that can be used.
+The TLS connection starts it initiated the TLS handhsake where several key decisions (excuse the pun) are made. First the client sends a "ClientHello" message to request a secure website. This message comes with information about which versions of TLS it can use and the which cipher suites[^-1] that can be used.
 
 [^-1]: A cipher suite is a collection of cryptographic algorithms that will be used create the necessary keys and encrypt infromation.
 
 The Server responds with it's "ServerHello" message which includes the highest version of TLS and cipher suites that both support. It then also passes along the servers digital certificate which has been verified by a Certificate authority.
 
-The client then verifies the servers certificate and then uses the servers public key to encrypt a "premaster secret" and send to the server. Once the serve decrypts the premaster secret (using the private key) both parties then make their sessions keys and then use symmetric encryption for subsequent communication.
+The client then verifies the servers certificate and then uses the servers public key to encrypt a "premaster secret" and send to the server. Once the server decrypts the premaster secret (using the private key) both parties then make their sessions keys and then use symmetric encryption for subsequent communication.
 
 ## Moving onto mTLS
 
@@ -29,7 +29,7 @@ First the client sends the ClientHello to the server. The Server then responds w
 
 
 
-### Why not always use mTLS
+### Why not always use mTLS?
 
 - It is more costly than regular TLS.
 
@@ -42,7 +42,9 @@ First the client sends the ClientHello to the server. The Server then responds w
 
 - connecting cloud services
 
-### What does mTLS prevent
+-Securing APIs
+
+### What does mTLS prevent?
 
 - On-Path attacks
 
