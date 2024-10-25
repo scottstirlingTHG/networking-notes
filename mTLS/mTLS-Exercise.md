@@ -53,9 +53,9 @@ mTLS is more secure than regular TLS so why do we not always use it when we acce
 
 - Securing APIs - making sure the API can veryify who is trying to get access and also the client can verify where they are getting the information from.
 
-### What does mTLS prevent?
+### What does mTLS with?
 
-- On-Path attacks (Man in the Middle) - The encryption stops anyone being able to read the information
+- On-Path attacks (Man in the Middle) - The encryption stops anyone being able to read the information.
 
 - Spoofing attacks - For isntance a server will not be able to fake it is another server since each side is authenitcated (I think TLS stops this too).
 
