@@ -16,20 +16,31 @@ The client then verifies the servers certificate and then uses the servers publi
 
 ## Moving onto mTLS
 
-You may have noticed during TLS that the server never checked that the client was authentic and only the authenticity of the server was checked. This is the point of distinction between mTLS (mutual TLS) and TLS, both parties are authenticated. It does this by having both parties presenting their certificates to each other in order for authentification to take place.
+You may have noticed during TLS that the server never checked that the client was authenticated and only the authenticity of the server was checked. This is the point of distinction between mTLS (mutual TLS) and TLS, both parties are authenticated. It does this by having both parties presenting their certificates to each other in order for authentification to take place.
 
 You would use mTLS is a setting where there is a zero trust framework where no devices on a network are trusted. An example of an application which uses this is Cloudflare Zero Trust (I am checking if Okta on our laptops uses mTLS - I suspect it does).
 
 ### How does it work?
 
-The other file in this directory/folder is a excalidraw drawing which outlines we will just describe what happens here.
+Like TLS, mTLS makes use of public key cryptography in order to securely transfer information to establish symmetric encryption. 
+Similar to TLS the the public keys are part of the certifcate. In the following steps we will outline mTLS while abstracting away some of the public key details.
 
-First the client sends the ClientHello to the server. The Server then responds with the ServerHello. The server then follows this up with the certificate. The client then checks this against the chain in order to establish trust. Once verified the server request the clients certificate and then sends cryptographic information in order for the server to verify the cleints certifcate. They then generate their agreed upon symmetric encryption and then proceed using that for all communication in the session.
+1. First the client sends the ClientHello to the server. 
 
+2. The Server then responds with the ServerHello. 
 
+3. The server then follows this up with sending their certificate. 
+
+4. The client then checks this against the chain in order to establish trust. 
+
+5. Once verified the server request the clients certificate and then sends cryptographic information in order for the server to verify the cleints certifcate. 
+
+6. They then generate their agreed upon symmetric encryption and then proceed using that for all communication in the session.
 
 
 ### Why not always use mTLS?
+
+mTLS is more secure than regular TLS so why do we not always use it when we accessing a webpage, there are two main reasons for this:
 
 - It is more costly than regular TLS.
 
@@ -38,25 +49,21 @@ First the client sends the ClientHello to the server. The Server then responds w
 
 ### When to use mTLS?
 
-- B2B finance
+- B2B finance - We would use mTLS in order to securely transactions between two businesses
 
-- connecting cloud services
-
--Securing APIs
+- Securing APIs - making sure the API can veryify who is trying to get access and also the client can verify where they are getting the information from.
 
 ### What does mTLS prevent?
 
-- On-Path attacks
+- On-Path attacks (Man in the Middle) - The encryption stops anyone being able to read the information
 
-- Spoofing attacks
+- Spoofing attacks - For isntance a server will not be able to fake it is another server since each side is authenitcated (I think TLS stops this too).
 
-- Credential stuffing
+- Credential stuffing -  without a legitmate certificate the leaked credentials are less useful in gaining access.
 
-- Brute force attacks
+- Phishing attacks - Like the above stolen credentials are less useful since the certifcate is still needed for access
 
-- Phishing attacks
-
-- Malicious API request
+- Malicious API request - Since the API needs users to be authenticated via certificate request can only be made from authenticated users.
 
 
 ### Bibliography
